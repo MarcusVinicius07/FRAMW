@@ -1,0 +1,153 @@
+CREATE SCHEMA IF NOT EXISTS `SistemaSue` DEFAULT CHARACTER SET utf8 ;
+USE `SistemaSue` ;
+
+-- -----------------------------------------------------
+-- Table `SistemaSue`.`Aluno`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SistemaSue`.`Aluno` (
+  `CPFAluno` VARCHAR(14) NOT NULL,
+  `NomeAluno` VARCHAR(90) NULL,
+  `EndereçoAluno` VARCHAR(45) NULL,
+  `TelefoneAluno` VARCHAR(45) NULL,
+  PRIMARY KEY (`CPFAluno`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SistemaSue`.`curso`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SistemaSue`.`curso` (
+  `idcurso` INT NOT NULL AUTO_INCREMENT,
+  `NomeCurso` VARCHAR(45) NULL,
+  `cargahoraria` INT NULL,
+  PRIMARY KEY (`idcurso`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SistemaSue`.`Professor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SistemaSue`.`Professor` (
+  `CPF_Professor` VARCHAR(12) NOT NULL,
+  `Nome_Professor` VARCHAR(45) NOT NULL,
+  `Endereço_Professor` VARCHAR(45) NOT NULL,
+  `Telefone_Professor` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`CPF_Professor`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SistemaSue`.`disciplina`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SistemaSue`.`disciplina` (
+  `iddisciplina` INT NOT NULL AUTO_INCREMENT,
+  `NomeDisciplina` VARCHAR(45) NULL,
+  `CargaHoraria` VARCHAR(45) NULL,
+  `Professor_CPF_Professor` VARCHAR(12) NOT NULL,
+  PRIMARY KEY (`iddisciplina`),
+    FOREIGN KEY (`Professor_CPF_Professor`)
+    REFERENCES `SistemaSue`.`Professor` (`CPF_Professor`)
+    )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SistemaSue`.`Matricula`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SistemaSue`.`Matricula` (
+  `idMatricula` INT NOT NULL AUTO_INCREMENT,
+  `dataMatricula` VARCHAR(45) NULL,
+  `Status` VARCHAR(45) NULL,
+  PRIMARY KEY (`idMatricula`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SistemaSue`.`Pagamento`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SistemaSue`.`Pagamento` (
+  `idPagamento` INT NOT NULL AUTO_INCREMENT,
+  `dataPagamento` VARCHAR(45) NULL,
+  `valor` INT NULL,
+  `status` VARCHAR(45) NULL,
+  PRIMARY KEY (`idPagamento`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SistemaSue`.`aluno_matricula_curso`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SistemaSue`.`aluno_matricula_curso` (
+  `CPFAluno` VARCHAR(14) NOT NULL,
+  `Matricula_idMatricula` INT NOT NULL,
+  `curso_idcurso` INT NOT NULL,
+  PRIMARY KEY (`CPFAluno`, `Matricula_idMatricula`,`curso_idcurso` ),
+    FOREIGN KEY (`CPFAluno`) REFERENCES `SistemaSue`.`Aluno` (`CPFAluno`),
+    FOREIGN KEY (`Matricula_idMatricula`) REFERENCES `SistemaSue`.`Matricula` (`idMatricula`),
+    FOREIGN KEY (`curso_idcurso`) REFERENCES `SistemaSue`.`curso` (`idcurso`)
+    )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SistemaSue`.`matricula_disciplina`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SistemaSue`.`matricula_disciplina` (
+  `Matricula_idMatricula` INT NOT NULL,
+  `disciplina_iddisciplina` INT NOT NULL,
+  `nota` DOUBLE NULL,
+  `frequencia` VARCHAR(45) NULL,
+  PRIMARY KEY (`Matricula_idMatricula`, `disciplina_iddisciplina`),
+    FOREIGN KEY (`Matricula_idMatricula`) REFERENCES `SistemaSue`.`Matricula` (`idMatricula`),
+    FOREIGN KEY (`disciplina_iddisciplina`) REFERENCES `SistemaSue`.`disciplina` (`iddisciplina`)
+)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SistemaSue`.`aluno_pagamento`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SistemaSue`.`aluno_pagamento` (
+  `CPFAluno` VARCHAR(14) NOT NULL,
+  `Pagamento_idPagamento` INT NOT NULL,
+  PRIMARY KEY (`CPFAluno`, `Pagamento_idPagamento`),
+    FOREIGN KEY (`CPFAluno`) REFERENCES `SistemaSue`.`Aluno` (`CPFAluno`),
+    FOREIGN KEY (`Pagamento_idPagamento`) REFERENCES `SistemaSue`.`Pagamento` (`idPagamento`)
+)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SistemaSue`.`curso_disciplina`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SistemaSue`.`curso_disciplina` (
+  `curso_idcurso` INT NOT NULL,
+  `disciplina_iddisciplina` INT NOT NULL,
+   PRIMARY KEY (`curso_idcurso`, `disciplina_iddisciplina`),
+    FOREIGN KEY (`curso_idcurso`) REFERENCES `SistemaSue`.`curso` (`idcurso`),
+    FOREIGN KEY (`disciplina_iddisciplina`) REFERENCES `SistemaSue`.`disciplina` (`iddisciplina`)
+)
+ENGINE = InnoDB;
+
+
+
+-- -----------------------------------------------------
+-- Table `SistemaSue`.`Coordenador`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SistemaSue`.`Coordenador` (
+  `CPF_Coordenador` VARCHAR(12) NOT NULL,
+  `Nome_coordenador` VARCHAR(45) NOT NULL,
+  `Endereço_Coordenador` VARCHAR(45) NOT NULL,
+  `Telefone_Coordenador` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`CPF_Coordenador`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SistemaSue`.`Usuario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SistemaSue`.`Usuario` (
+  `LOGIN` VARCHAR(45) NOT NULL,
+  `senha` VARCHAR(45) NULL,
+  PRIMARY KEY (`LOGIN`))
+ENGINE = InnoDB;
