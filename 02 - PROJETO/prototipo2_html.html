@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gerenciamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 5px 0;
+        }
+        input {
+            margin: 5px 0;
+            padding: 5px;
+        }
+        button {
+            padding: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sistema de Gerenciamento</h1>
+
+    <!-- Tela de Início -->
+    <h2>Bem-vindo ao Sistema</h2>
+    <p>Escolha uma opção abaixo:</p>
+
+    <button onclick="mostrarFormulario('aluno')">Gerenciar Alunos</button>
+    <button onclick="mostrarFormulario('curso')">Gerenciar Cursos</button>
+    <button onclick="mostrarFormulario('matricula')">Gerenciar Matrículas</button>
+    <button onclick="mostrarFormulario('professor')">Gerenciar Professores</button>
+    <button onclick="mostrarFormulario('coordenador')">Gerenciar Coordenadores</button>
+    <button onclick="mostrarFormulario('pagamento')">Gerenciar Pagamentos</button>
+
+    <!-- Formulário para interações -->
+    <form id="formulario" style="display: none;">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <!-- Adicione mais campos conforme necessário -->
+
+        <button type="button" onclick="executarAcao('incluir')">Incluir</button>
+        <button type="button" onclick="executarAcao('consultar')">Consultar</button>
+        <button type="button" onclick="executarAcao('atualizar')">Atualizar</button>
+        <button type="button" onclick="executarAcao('deletar')">Deletar</button>
+    </form>
+
+    <script>
+        function mostrarFormulario(entidade) {
+            document.getElementById('formulario').style.display = 'block';
+            // Adicione lógica para personalizar o formulário com base na entidade selecionada
+        }
+
+        function executarAcao(acao) {
+            // Adicione lógica para processar a ação selecionada
+            alert('Ação: ' + acao);
+        }
+    </script>
+</body>
+</html>
