@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Aluno</title>
+    <style>
+        /* Geral */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Formulário */
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            margin: 0 auto; /* centraliza o formulário na página */
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            margin-top: 10px;
+            color: #333;
+        }
+
+        input {
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #007bff;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+        .back-button{
+            background-color: #5a6268;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Adicionar Novo Aluno</h1>
+    <form method="POST" action="/add_alunos">
+        <label for="CPF_aluno">CPF:</label>
+        <input type="text" id="CPF_aluno" name="CPF_aluno" required maxlength="11">
+
+        <label for="nome_aluno">Nome:</label>
+        <input type="text" id="nome_aluno" name="nome_aluno" required maxlength="50">
+
+        <label for="endereco_aluno">Endereço:</label>
+        <input type="text" id="endereco_aluno" name="endereco_aluno" required maxlength="50">
+
+        <label for="telefone_aluno">Telefone:</label>
+        <input type="text" id="telefone_aluno" name="telefone_aluno" required maxlength="11">
+
+        <label for="CEP_aluno">CEP:</label>
+        <input type="text" id="CEP_aluno" name="CEP_aluno" required maxlength="8">
+
+        <button type="submit">Adicionar Aluno</button>
+        <button class="back-button" onclick="window.location.href='/alunos'">Voltar</button>
+    </form>
+
+</body>
+</html>

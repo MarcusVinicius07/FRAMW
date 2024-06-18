@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela Inicial SUE</title>
+    <style>
+        /* Reset CSS básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos gerais */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+        }
+
+        header h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        header nav ul li {
+            margin: 0 10px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            background-color: transparent;
+            display: inline-block;
+        }
+
+        header nav ul li a:hover {
+            background-color: #003d80;
+        }
+
+        /* Introdução */
+        .intro {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .intro h2 {
+            margin-bottom: 10px;
+        }
+
+        .intro p {
+            font-size: 18px;
+        }
+
+        /* Seção de botões */
+        .buttons ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 0;
+            margin-top: 20px;
+
+        }
+
+        .buttons li {
+            flex: 1 1 30%;
+            text-align: center;
+            
+        }
+
+        .buttons button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            max-width: 200px;
+            box-shadow: 5px 3px 7px 1px rgba(0, 0, 0, 0.3);
+        }
+
+        .buttons button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: auto;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Sistema Único Escolar (SUE)</h1>
+            <nav>
+                <ul>
+                    <li><a href="/alunos">Gerenciar Alunos</a></li>
+                    <li><a href="/matriculas_disciplina">Aluno/Disciplinas</a></li>
+                    <li><a href="/cursos">Gerenciar Cursos</a></li>
+                    <li><a href="/disciplinas">Gerenciar Disciplinas</a></li>
+                    <li><a href="/matriculas">Gerenciar Matriculas</a></li>
+                    <li><a href="/pagamentos">Gerenciar Pagamentos</a></li>
+                    <li><a href="/professores">Gerenciar Professores</a></li>
+                    <li><a href="/coordenadores">Gerenciar Coordenadores</a></li>
+                    <li><a href="/turmas">Gerenciar Turmas</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <section class="intro">
+                <h2>Bem-vindo ao Sistema Único Escolar</h2>
+                <p>Gerencie todos os aspectos da sua escola de forma eficiente e centralizada.</p>
+            </section>
+            <section class="buttons">
+                <ul>
+                    <li><button onclick="window.location.href='/alunos'">Gerenciar Alunos</button></li>
+                    <li><button onclick="window.location.href='/matriculas_disciplina'">Aluno/Disciplinas</button></li>
+                    <li><button onclick="window.location.href='/cursos'">Gerenciar Cursos</button></li>
+                    <li><button onclick="window.location.href='/disciplinas'">Gerenciar Disciplinas</button></li>
+                    <li><button onclick="window.location.href='/matriculas'">Gerenciar Matriculas</button></li>
+                    <li><button onclick="window.location.href='/pagamentos'">Gerenciar Pagamentos</button></li>
+                    <li><button onclick="window.location.href='/professores'">Gerenciar Professores</button></li>
+                    <li><button onclick="window.location.href='/coordenadores'">Gerenciar Coordenadores</button></li>
+                    <li><button onclick="window.location.href='/turmas'">Gerenciar Turmas</button></li>
+                </ul>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Sistema Único Escolar. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

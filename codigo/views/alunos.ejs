@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Disciplinas</title>
+    <style>
+        /* Geral */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .geral {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Botões */
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .add-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            width: auto; /* Adicionando esta linha para definir a largura automaticamente */
+        }
+
+        .add-button:hover {
+            background-color: #218838;
+        }
+
+        .delete-button, .save-button {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .delete-button:hover, .save-button:hover {
+            background-color: #c82333;
+        }
+
+        /* Formulário de pesquisa */
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Tabela */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto; /* Centralizar a tabela */
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        /* Células editáveis */
+        td[contenteditable="true"] {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Alunos</h1>
+    <form method="GET" action="/alunos">
+        <input type="text" name="search" placeholder="Pesquisar por nome do aluno">
+        <button type="submit">Pesquisar</button>
+    </form>
+    <!-- Botão para adicionar nova disciplina -->
+     <button class="add-button" onclick="location.href='/paginainicial'">Voltar a pagina inicial</button>
+    <button class="add-button" onclick="location.href='/add_alunos'">Adicionar Aluno</button>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Endereço</th>
+                <th>Telefone</th>
+                <th>CEP</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% alunos.forEach(aluno => { %>
+                <tr>
+                    <td><%= aluno.id_aluno %></td>
+                    <td contenteditable="true" id="nome_<%= aluno.id_aluno %>"><%= aluno.nome_aluno %></td>
+                    <td contenteditable="true" id="CPF_aluno_<%= aluno.id_aluno %>"><%= aluno.CPF_aluno %></td>
+                    <td contenteditable="true" id="endereco_aluno_<%= aluno.id_aluno %>"><%= aluno.endereco_aluno %></td>
+                    <td contenteditable="true" id="telefone_aluno_<%= aluno.id_aluno %>"><%= aluno.telefone_aluno %></td>
+                    <td contenteditable="true" id="CEP_aluno_<%= aluno.id_aluno %>"><%= aluno.CEP_aluno %></td>
+                    <td>
+                        <button type="submit" onclick="saveChanges('<%= aluno.id_aluno %>')">Salvar</button>
+                        <form method="POST" action="/delete_aluno/<%= aluno.id_aluno %>" onsubmit="return confirm('Tem certeza que deseja excluir este aluno?');">
+                            <button type="submit">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+        
+        <script>
+            function saveChanges(id_aluno) {
+                const nome_aluno = document.getElementById(`nome_${id_aluno}`).innerText;
+                const CPF_aluno = document.getElementById(`CPF_aluno_${id_aluno}`).innerText;
+                const endereco_aluno = document.getElementById(`endereco_aluno_${id_aluno}`).innerText;
+                const telefone_aluno = document.getElementById(`telefone_aluno_${id_aluno}`).innerText;
+                const CEP_aluno = document.getElementById(`CEP_aluno_${id_aluno}`).innerText;
+        
+               
+                fetch(`/edit_aluno/${id_aluno}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        nome_aluno: nome_aluno,
+                        CPF_aluno: CPF_aluno,
+                        endereco_aluno: endereco_aluno,
+                        telefone_aluno: telefone_aluno,
+                        CEP_aluno: CEP_aluno
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Optional: Provide better user feedback instead of reload
+                        window.location.reload();
+                    } else {
+                        throw new Error('Erro ao salvar as alterações.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    alert('Erro ao salvar as alterações.');
+                });
+            }
+        </script>
+        
+</body>
+</html>

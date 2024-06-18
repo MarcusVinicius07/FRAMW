@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Turmas</title>
+ 
+    <style>
+       /* Geral */
+       * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .geral {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Botões */
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .add-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            width: auto; /* Adicionando esta linha para definir a largura automaticamente */
+        }
+
+        .add-button:hover {
+            background-color: #218838;
+        }
+
+        .delete-button, .save-button {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .delete-button:hover, .save-button:hover {
+            background-color: #c82333;
+        }
+
+        /* Formulário de pesquisa */
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Tabela */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto; /* Centralizar a tabela */
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        /* Células editáveis */
+        td[contenteditable="true"] {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Turmas</h1>
+    <!-- Formulário de pesquisa -->
+    <form method="GET" action="/turmas">
+        <input type="text" name="search" placeholder="Pesquisar por sala da turma">
+        <button type="submit">Pesquisar</button>
+    </form>
+    <!-- Botões -->
+    <button class="add-button" onclick="location.href='/paginainicial'">Voltar à página inicial</button>
+    <button class="add-button" onclick="location.href='/add_turma'">Adicionar Turma</button>
+    <!-- Tabela -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Sala</th>
+                <th>Horário</th>
+                <th>Período</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% turmas.forEach(turma => { %>
+                <tr>
+                    <td><%= turma.id_turma %></td>
+                    <td contenteditable="true" id="sala_<%= turma.id_turma %>"><%= turma.sala %></td>
+                    <td contenteditable="true" id="horario_<%= turma.id_turma %>"><%= turma.horario %></td>
+                    <td contenteditable="true" id="periodo_<%= turma.id_turma %>"><%= turma.periodo %></td>
+                    <td>
+                        <button type="submit" onclick="saveChanges('<%= turma.id_turma %>')">Salvar</button>
+                        <form method="POST" action="/delete_turma/<%= turma.id_turma %>" onsubmit="return confirm('Tem certeza que deseja excluir esta turma?');">
+                            <button type="submit">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <!-- Script -->
+    <script>
+        function saveChanges(id_turma) {
+            const sala = document.getElementById(`sala_${id_turma}`).innerText;
+            const horario = document.getElementById(`horario_${id_turma}`).innerText;
+            const periodo = document.getElementById(`periodo_${id_turma}`).innerText;
+
+            fetch(`/edit_turma/${id_turma}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    sala: sala,
+                    horario: horario,
+                    periodo: periodo
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    throw new Error('Erro ao salvar as alterações.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Erro ao salvar as alterações.');
+            });
+        }
+    </script>
+</body>
+</html>

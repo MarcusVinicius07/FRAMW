@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Professor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-group button {
+            display: inline-block;
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #6c757d;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Adicionar Professor</h1>
+        <form method="POST" action="/add_professor">
+            <div class="form-group">
+                <label for="CPF_professor">CPF do Professor</label>
+                <input type="text" id="CPF_professor" name="CPF_professor" required>
+            </div>
+            <div class="form-group">
+                <label for="nome_professor">Nome do Professor</label>
+                <input type="text" id="nome_professor" name="nome_professor" required>
+            </div>
+            <div class="form-group">
+                <label for="telefone_professor">Telefone do Professor</label>
+                <input type="text" id="telefone_professor" name="telefone_professor" required>
+            </div>
+            <div class="form-group">
+                <label for="endereço_professor">Endereço do Professor</label>
+                <input type="text" id="endereço_professor" name="endereço_professor" required>
+            </div>
+            <div class="form-group">
+                <label for="CEP_professor">CEP do Professor</label>
+                <input type="text" id="CEP_professor" name="CEP_professor" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Adicionar</button>
+            </div>
+        </form>
+        <a href="/professores" class="back-button">Voltar</a>
+    </div>
+</body>
+</html>
