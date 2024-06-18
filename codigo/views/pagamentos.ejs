@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Pagamentos</title>
+    <style>
+        /* Geral */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Botões */
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .add-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .add-button:hover {
+            background-color: #218838;
+        }
+
+        .delete-button {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+
+        /* Tabela */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        /* Células editáveis */
+        td[contenteditable="true"] {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Pagamentos</h1>
+    <button class="add-button" onclick="location.href='/paginainicial'">Voltar à página inicial</button>
+    <button class="add-button" onclick="location.href='/add_pagamento'">Adicionar Pagamento</button>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Aluno</th>
+                <th>Valor</th>
+                <th>Descrição</th>
+                <th>Data de Pagamento</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% pagamentos.forEach(pagamento => { %>
+                <tr>
+                    <td><%= pagamento.id_pagamento %></td>
+                    <td><%= pagamento.Aluno ? pagamento.Aluno.nome_aluno : 'Aluno não encontrado' %></td>
+                    <td><%= pagamento.valor %></td>
+                    <td><%= pagamento.descricao %></td>
+                    <td><%= new Date(pagamento.data_pagamento).toLocaleDateString() %></td>
+                    <td>
+                        <form method="POST" action="/delete_pagamento/<%= pagamento.id_pagamento %>" onsubmit="return confirm('Tem certeza que deseja excluir este pagamento?');">
+                            <button type="submit" class="delete-button">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>
